@@ -82,3 +82,26 @@ form.addEventListener("submit", async (e) => {
     .join("");
 });
 form.dispatchEvent(new Event("submit"));
+
+// Software version number
+const versions = [
+  "2.5.0-dev.1",
+  "2.4.2-5354",
+  "2.4.2-test.675",
+  "2.4.1-integration.1",
+];
+
+function getProductionVersion(versions) {
+  const regex = /^(\d+\.\d+\.\d+-\w+\.\d+)$/; // regex to match the desired version format
+  let productionVersion = null;
+  versions.forEach((version) => {
+    const match = version.match(regex);
+    if (match && (!productionVersion || version > productionVersion)) {
+      productionVersion = version;
+    }
+  });
+  return productionVersion;
+}
+
+const productionVersion = getProductionVersion(versions);
+console.log(productionVersion);
